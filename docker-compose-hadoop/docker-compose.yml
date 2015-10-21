@@ -1,19 +1,22 @@
+# documenation https://docs.docker.com/compose/yml/
+
 namenode:
   build: .
   hostname: namenode
+  container_name: hadoop_namenode
   volumes:
-    - /docker_shared/debian-hadoop/namenode:/shared
+    - ./shared/hdfs/namenode:/shared/dfs/namenode
   ports:
     - "8020:8020"
     - "50070:50070"
   command: hdfs namenode
 
-
 datanode1:
   build: .
   hostname: datanode1
+  container_name: hadoop_datanode1
   volumes:
-      - /docker_shared/debian-hadoop/datanode1:/shared
+    - ./shared/hdfs/datanode1:/shared/dfs/datanode1
   links:
       - namenode
   ports:
@@ -23,8 +26,9 @@ datanode1:
 datanode2:
   build: .
   hostname: datanode2
+  container_name: hadoop_datanode2
   volumes:
-      - /docker_shared/debian-hadoop/datanode2:/shared
+    - ./shared/hdfs/datanode1:/shared/dfs/datanode1
   links:
       - namenode
   ports:
@@ -34,8 +38,9 @@ datanode2:
 datanode3:
   build: .
   hostname: datanode3
+  container_name: hadoop_datanode3
   volumes:
-      - /docker_shared/debian-hadoop/datanode3:/shared
+    - ./shared/hdfs/datanode1:/shared/dfs/datanode1
   links:
       - namenode
   ports:

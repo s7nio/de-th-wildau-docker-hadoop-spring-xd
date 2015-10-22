@@ -13,9 +13,11 @@ $ brew install docker docker-machine docker-compose docker-swarm
 $ brew list | grep docker
 $ docker-machine create -d virtualbox dev
 $ docker-machine # start / stop / kill / rm NAME
+$ docker-machine ls
 $ docker-machine env dev
 $ docker run -it ubuntu:latest /bin/bash
 $ # this is the bash of yout first container
+$ docker ps
 ```
 
 ## hadoop

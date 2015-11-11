@@ -1,0 +1,24 @@
+redis:
+  image: redis
+
+hsqldb:
+  image: springxd/hsqldb
+
+zookeeper:
+  image: springxd/zookeeper
+
+admin:
+  image: springxd/admin
+  ports:
+   - "9393:9393"
+  links:
+   - zookeeper:zookeeper
+   - redis:redis
+   - hsqldb:hsqldb
+
+container:
+  image: springxd/container
+  links:
+   - zookeeper:zookeeper
+   - redis:redis
+   - hsqldb:hsqldb

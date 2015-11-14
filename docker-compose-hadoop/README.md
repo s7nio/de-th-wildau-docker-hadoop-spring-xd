@@ -4,6 +4,13 @@ This path based on the [badele](https://github.com/badele/docker-recipes/debian-
 
 ## How to setup
 
+Basic docker setup.
+
+1. Create a local vm instance for all the docker container. 
+    - ```docker-machine create --driver virtualbox dev```
+    - ```docker-machine env dev```
+    - ```eval "$(docker-machine env dev)"```
+
 They are two easy steps.
 
 1. Initialise HDFS

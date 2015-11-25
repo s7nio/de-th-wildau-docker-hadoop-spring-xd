@@ -1,0 +1,91 @@
+namenode:
+  build: .
+  hostname: namenode
+  container_name: dfs_namenode
+  volumes:
+    - ./shared/hdfs/namenode:/shared/dfs/namenode
+  ports:
+    - "8020:8020"
+    - "50070:50070"
+#  command: hdfs namenode -format #-N
+  command: hdfs namenode
+
+datanode1:
+  build: .
+  hostname: datanode1
+  container_name: dfs_datanode1
+  volumes:
+    - ./shared/hdfs/datanode1:/shared/dfs/datanode1
+  links:
+      - namenode
+  ports:
+      - "5001:50075"
+  command: hdfs datanode
+
+datanode2:
+  build: .
+  hostname: datanode2
+  container_name: dfs_datanode2
+  volumes:
+    - ./shared/hdfs/datanode2:/shared/dfs/datanode2
+  links:
+      - namenode
+  ports:
+      - "5002:50075"
+  command: hdfs datanode
+
+datanode3:
+  build: .
+  hostname: datanode3
+  container_name: dfs_datanode3
+  volumes:
+    - ./shared/hdfs/datanode3:/shared/dfs/datanode3
+  links:
+      - namenode
+  ports:
+      - "5003:50075"
+  command: hdfs datanode
+
+redis:
+  image: redis
+  hostname: sxd_redis
+  container_name: sxd_redis
+
+hsqldb:
+  image: springxd/hsqldb
+  hostname: sxd_hsqldb
+  container_name: sxd_hsqldb
+
+zookeeper:
+  image: springxd/zookeeper
+  hostname: sxd_zookeeper
+  container_name: sxd_zookeeper
+
+admin:
+  image: springxd/admin
+  hostname: sxd_admin
+  container_name: sxd_admin
+  ports:
+   - "9393:9393"
+  links:
+   - zookeeper:zookeeper
+   - redis:redis
+   - hsqldb:hsqldb
+#   - sxd_shell:sxd_shell
+
+container:
+  image: springxd/container
+  hostname: sxd_container
+  container_name: sxd_container
+  links:
+   - zookeeper:zookeeper
+   - redis:redis
+   - hsqldb:hsqldb
+
+#shell:
+#  image: springxd/shell
+#  hostname: sxd_shell
+#  container_name: sxd_shell
+#  links:
+#   - admin:sxd_admin
+#  command: ./shell/bin/xd_shell && admin config server http://sxd_admin:9393

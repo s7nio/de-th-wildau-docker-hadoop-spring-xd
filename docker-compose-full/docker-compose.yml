@@ -60,6 +60,8 @@ zookeeper:
   image: springxd/zookeeper
   hostname: sxd_zookeeper
   container_name: sxd_zookeeper
+#  links:
+#   - shell:sxd_shell
 
 admin:
   image: springxd/admin
@@ -71,7 +73,7 @@ admin:
    - zookeeper:zookeeper
    - redis:redis
    - hsqldb:hsqldb
-#   - sxd_shell:sxd_shell
+#   - shell:sxd_shell
 
 container:
   image: springxd/container
@@ -81,6 +83,7 @@ container:
    - zookeeper:zookeeper
    - redis:redis
    - hsqldb:hsqldb
+#   - shell:sxd_shell
 
 #shell:
 #  image: springxd/shell
@@ -89,3 +92,5 @@ container:
 #  links:
 #   - admin:sxd_admin
 #  command: ./shell/bin/xd_shell && admin config server http://sxd_admin:9393
+#  command: exit
+#  command: ps aux | grep xd_shell | awk {'print $2'} | xargs kill 

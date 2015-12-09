@@ -26,5 +26,8 @@ $ docker-machine ip dev
 $ docker inspect dfs_namenode | grep IPAddress
 	> 172.17.0.8
 $ sxd_admin:> hadoop config fs --namenode hdfs://172.17.0.8:8020
+$ sxd_admin:> hadoop fs mkdir /data
 $ sxd_admin:> hadoop fs ls /
+Found 1 items
+drwxr-xr-x   - springxd supergroup          0 2015-12-09 14:52 /data
 ```

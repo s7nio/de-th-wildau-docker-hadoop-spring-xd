@@ -7,8 +7,7 @@ $ docker-compose run namenode hdfs namenode -format
 $ docker-compose up -d
 $ docker inspect sxd_admin | grep IPAddress
 	> 172.17.0.5
-$ docker run --name sxd_shell --link sxd_admin -it springxd/shell
-
+$ docker run -it --name sxd_shell --link sxd_admin springxd/shell
 $ xd:> admin config server http://172.17.0.5:9393
 ```
 
@@ -34,4 +33,14 @@ $ docker run --link sxd_admin -it springxd/shell
 	$ sxd_admin:> hadoop fs ls /
 Found 1 items
 drwxr-xr-x   - springxd supergroup          0 2015-12-09 14:52 /data
+```
+Have fun with your running docker (hadoop, springxd) zoo.
+
+
+## misc commands
+
+```
+$ docker run -it --name sxd_shell --link sxd_admin springxd/shell bash -c "shell/bin/xd-shell"
+$ docker start sxd_shell
+$ docker exec -it sxd_shell bash -c "shell/bin/xd-shell"
 ```

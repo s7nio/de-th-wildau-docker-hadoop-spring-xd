@@ -1,3 +1,5 @@
+# documenation https://docs.docker.com/compose/yml/
+
 namenode:
   build: .
   hostname: namenode
@@ -7,7 +9,6 @@ namenode:
   ports:
     - "8020:8020"
     - "50070:50070"
-#  command: hdfs namenode -format #-N
   command: hdfs namenode
 
 datanode1:
@@ -57,23 +58,22 @@ hsqldb:
   container_name: sxd_hsqldb
 
 zookeeper:
-  image: springxd/zookeeper
+  image: jplock/zookeeper
   hostname: sxd_zookeeper
   container_name: sxd_zookeeper
-#  links:
-#   - shell:sxd_shell
 
 admin:
   image: springxd/admin
   hostname: sxd_admin
   container_name: sxd_admin
+  volumes:
+    - ./shared/admin:/shared
   ports:
    - "9393:9393"
   links:
    - zookeeper:zookeeper
    - redis:redis
    - hsqldb:hsqldb
-#   - shell:sxd_shell
 
 container:
   image: springxd/container
@@ -83,14 +83,3 @@ container:
    - zookeeper:zookeeper
    - redis:redis
    - hsqldb:hsqldb
-#   - shell:sxd_shell
-
-#shell:
-#  image: springxd/shell
-#  hostname: sxd_shell
-#  container_name: sxd_shell
-#  links:
-#   - admin:sxd_admin
-#  command: ./shell/bin/xd_shell && admin config server http://sxd_admin:9393
-#  command: exit
-#  command: ps aux | grep xd_shell | awk {'print $2'} | xargs kill 

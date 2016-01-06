@@ -49,23 +49,27 @@ datanode3:
 
 redis:
   image: redis
-  hostname: sxd_redis
-  container_name: sxd_redis
+  hostname: redis
+  container_name: redis
 
 hsqldb:
   image: springxd/hsqldb
-  hostname: sxd_hsqldb
-  container_name: sxd_hsqldb
+  hostname: hsqldb
+  container_name: hsqldb
 
 zookeeper:
   image: jplock/zookeeper
-  hostname: sxd_zookeeper
-  container_name: sxd_zookeeper
+  hostname: zookeeper
+  container_name: zookeeper
+  ports:
+   - "2181:2181"
+   - "2888:2888"
+   - "3888:3888"
 
 admin:
   image: springxd/admin
-  hostname: sxd_admin
-  container_name: sxd_admin
+  hostname: admin
+  container_name: admin
   volumes:
     - ./shared/admin:/shared
   ports:
@@ -77,9 +81,11 @@ admin:
 
 container:
   image: springxd/container
-  hostname: sxd_container
-  container_name: sxd_container
+  hostname: container
+  container_name: container
+  volumes:
+    - ./shared/admin:/shared
   links:
    - zookeeper:zookeeper
    - redis:redis
-   - hsqldb:hsqldb
+   - hsqldb:hsqldb 
